@@ -2,23 +2,24 @@ package modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Calendar;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
  * @author ht3000974
  * @author ht3000796
  */
-@Entity
-public class Tarefa implements Serializable{
+@Entity(name = "Tarefa")
+@Table(name = "tarefa")
+public class Tarefa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +27,19 @@ public class Tarefa implements Serializable{
     private String titulo;
     private String descricao;
     @Temporal(TemporalType.DATE)
-    private LocalDate dataCriacao;
+    private Calendar dataCriacao;
     @ManyToOne
-    @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
     public Tarefa() {
     }
-    
+
+    public Tarefa(String titulo, String descricao, Calendar dataCriacao) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.dataCriacao = dataCriacao;
+    }
 
     //<editor-fold defaultstate="collapsed" desc="getters/setters">
     public int getId() {
@@ -60,17 +66,15 @@ public class Tarefa implements Serializable{
         this.descricao = descricao;
     }
 
-    public LocalDate getDataCriacao() {
+    public Calendar getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(Calendar dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    
-    
-//</editor-fold>
 
+//</editor-fold>
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -79,4 +83,10 @@ public class Tarefa implements Serializable{
         this.pessoa = pessoa;
     }
 
+    @Override
+    public String toString() {
+        return "Tarefa{" + "id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", dataCriacao=" + dataCriacao.getTime() + ", pessoa=" + pessoa + '}';
+    }
+
+    
 }

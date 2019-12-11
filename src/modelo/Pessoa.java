@@ -5,18 +5,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- *
  * @author ht3000974
  * @author ht3000796
  */
+@Entity(name = "Pessoa")
+@Table(name = "pessoa")
 public class Pessoa implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     private String email;
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private List<Tarefa> tarefa = new ArrayList<Tarefa>();
 
     public Pessoa() {
@@ -61,6 +69,11 @@ public class Pessoa implements Serializable{
         this.tarefa = tarefa;
     }
 //</editor-fold>
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", email=" + email + '}';
+    }
     
     
     

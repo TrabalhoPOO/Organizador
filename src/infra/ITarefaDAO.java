@@ -9,10 +9,11 @@ import java.util.List;
 import modelo.Tarefa;
 
 /**
- *
  * @author ht3000974
+ * @author ht3000796
  */
 public interface ITarefaDAO {
     public void adicionar(Tarefa t);
     public List<Tarefa> obterTodos();
+    
 }
